@@ -1,6 +1,3 @@
-header {
-    background-color: lightgrey;
-}
 body {
     font-family: Arial, sans-serif;
     background-color: navajowhite;
@@ -8,11 +5,26 @@ body {
     color: #333;
 }
 
+/* Header */
+header {
+    background-color: lightgrey;
+    padding: 15px;
+    border-radius: 8px;
+}
+
 h1 {
     text-align: center;
     color: #4F4F4F;
+    margin: 0;
 }
 
+/* Navigation */
+nav {
+    margin: 15px 0;
+    text-align: center;
+}
+
+/* Posts */
 .post {
     background-color: #FFF;
     border: 1px solid #DDD;
@@ -27,4 +39,84 @@ h1 {
 
 .post p {
     margin: 10px 0;
+}
+
+/* Buttons */
+.form-delete-btn,
+.form-update-btn {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-add {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background-color: #45a049;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Flash Messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.flash {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.flash.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Empty / 404 */
+.empty {
+    text-align: center;
+    background-color: #FFF;
+    padding: 30px;
+    border-radius: 8px;
 }

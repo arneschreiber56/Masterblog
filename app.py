@@ -64,6 +64,16 @@ def load_json() -> list[dict]:
         ]
 
 
+def fetch_post_by_id(post_id: int) -> tuple[dict, list[dict]] | tuple[None, None]:
+    """Loads json file and gets post dictionary by id, returns the dictionary
+    and list of dictionaries as a tuple or None."""
+    blog_posts = load_json()
+    for blog in blog_posts:
+        if blog.get("id") == post_id:
+            return blog, blog_posts
+    return None, None
+
+
 @app.route("/", methods=["GET"])
 def home():
     """With a get request for this route, the function will return a rendered
@@ -90,8 +100,10 @@ def add():
         id_check = str(blog_posts[0].get("id", "")).strip()
 
         if id_check != "":
-            new_id = len(blog_posts) + 1
-
+            # expression works, because comprehension is generator expression
+            # wich is generating a virtual listing for max() on the fly without
+            # creating a real variable list
+            new_id = max(post.get("id", 0) for post in blog_posts) + 1
         else:
             new_id = 1
             blog_posts = []
@@ -108,6 +120,57 @@ def add():
         flash("New post successfully created!", "success")
         return redirect(url_for("home"))
     return render_template("add.html")
+
+
+@app.route('/update/<post_id>', methods=['GET', 'POST'])
+def update(post_id):
+    """Route for updating an existing post. With a get request the update
+    form is returned, with post the entry is updated in Database by id."""
+    post_id = str(post_id).strip()
+    if not post_id.isdigit():
+        abort(404)
+    post_id = int(post_id)
+    # Fetch the blog posts from the JSON file
+    post, blog_posts = fetch_post_by_id(post_id)
+    if post is None:
+        # Post not found
+        abort(404)
+
+    if request.method == 'POST':
+        new_author_name = request.form.get("author", "anonymous").strip()
+        new_title = request.form.get("title", "N/A").strip()
+        new_content = request.form.get("content", "").strip()
+
+        if not new_content:
+            flash("Please enter valid content!", "error")
+            return redirect(url_for("update", post_id=post_id))
+
+        updated_post = {
+            "id": post_id,
+            "author": new_author_name,
+            "title": new_title,
+            "content": new_content
+        }
+        new_blog_posts = []
+        updated = False
+
+        # Update the post in the JSON file
+        for post in blog_posts:
+            if post.get("id") == post_id:
+                new_blog_posts.append(updated_post)
+                flash("Post successfully updated", "success")
+                updated = True
+            else:
+                new_blog_posts.append(post)
+        if not updated:
+            abort(404)
+
+        write_json(new_blog_posts)
+        # Redirect back to index
+        return redirect(url_for("home"))
+    # Else, it's a GET request
+    # So display the update.html page
+    return render_template('update.html', post=post)
 
 
 @app.route("/delete/<post_id>", methods=["POST"])

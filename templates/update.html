@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
+    <title>My Flask Blog</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
     <header>
         <h1>Welcome to My Flask Blog!</h1>
     </header>
-
     <nav>
         <a href="{{ url_for('home') }}" class="btn-add">Go back home</a>
     </nav>
@@ -27,23 +25,23 @@
     {% endwith %}
 
     <div class="post">
-        <h2>Create your Post:</h2>
+        <h2>Update Blog Post:</h2>
 
-        <form action="{{ url_for('add') }}" method="POST">
-
+        <form action="{{ url_for('update', post_id=post.id) }}"
+              method="POST">
             <div class="form-group">
-                <label for="author">Enter your Name:</label>
-                <input type="text" id="author" name="author">
+                <label for="author">Update Name:</label>
+                <input type="text" id="author" name="author" value="{{ post.author }}">
             </div>
 
             <div class="form-group">
-                <label for="title">Enter Post Title:</label>
-                <input type="text" id="title" name="title">
+                <label for="title">Update Title:</label>
+                <input type="text" id="title" name="title" value="{{ post.title }}">
             </div>
 
             <div class="form-group">
-                <label for="content">Enter Post Content:</label>
-                <textarea id="content" name="content"></textarea>
+                <label for="content">Update Content:</label>
+                <textarea id="content" name="content">{{ post.content }}</textarea>
             </div>
 
             <button class="btn-add" type="submit">Submit</button>

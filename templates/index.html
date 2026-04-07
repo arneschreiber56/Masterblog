@@ -6,20 +6,39 @@
     <title>My Flask Blog</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<header>
-    <h1>Welcome to My Flask Blog!</h1>
-</header>
 <body>
+    <header>
+        <h1>Welcome to My Flask Blog!</h1>
+    </header>
+
     <nav>
-        <a href="/add" class="btn-add">Add comment</a>
+        <a href="{{ url_for('add')}}" class="btn-add" >Add Post</a>
+        <a href="{{ url_for('home') }}" class="btn-add">Go back home</a>
     </nav>
-    <div class="post">
-        {% for post in blog_posts %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% for post in blog_posts %}
+        <div class="post">
             <h2>Post Title: {{ post.title }}</h2>
             <p><em>Written by {{ post.author }}</em></p>
             <p>Post content:</p>
             <p>{{ post.content }}</p>
-            <form action="{{ url_for('delete_post', post_id=post.id) }}"
+
+            <a class="btn-add" href="{{ url_for('update', post_id=post.id) }}">
+                Update Post
+            </a>
+
+            <form class="form-delete-btn"
+                  action="{{ url_for('delete_post', post_id=post.id) }}"
                   method="post">
                 <button class="btn-delete"
                         type="submit"
@@ -27,8 +46,8 @@
                     Delete Post
                 </button>
             </form>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 </body>
 </html>
 

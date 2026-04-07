@@ -6,13 +6,15 @@
     <title>My Flask Blog</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<header>
-    <h1>Welcome to My Flask Blog!</h1>
-</header>
 <body>
+    <header>
+        <h1>Welcome to My Flask Blog!</h1>
+    </header>
+
     <nav>
-        <a href="/" class="btn-add">Go back home</a>
+        <a href="{{ url_for('home') }}" class="btn-add">Go back home</a>
     </nav>
+
     <div class="empty">
         <h2>404 – Not found 🚫</h2>
         <p>The requested page or resource could not be found.</p>
