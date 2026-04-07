@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "author": "",
+        "title": "",
+        "content": ""
+    },
+    {
+        "id": 2,
+        "author": "Arne",
+        "title": "First Try",
+        "content": "Hallo, World!"
+    },
+    {
+        "id": 3,
+        "author": "Arne",
+        "title": "Weiterer Versuch",
+        "content": "Hello World, again!"
+    },
+    {
+        "id": 4,
+        "author": "Arne",
+        "title": "And...",
+        "content": "I am writing and writing!"
+    }
+]
