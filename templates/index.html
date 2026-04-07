@@ -11,14 +11,22 @@
 </header>
 <body>
     <nav>
-        <a href="/add">Add comment</a>
+        <a href="/add" class="btn-add">Add comment</a>
     </nav>
     <div class="post">
         {% for post in blog_posts %}
-            <h2>Post Title: {{ post.get("title") }}</h2>
-            <p><em>Written by {{ post.get("author") }}</em></p>
+            <h2>Post Title: {{ post.title }}</h2>
+            <p><em>Written by {{ post.author }}</em></p>
             <p>Post content:</p>
-            <p>{{ post.get("content") }}</p>
+            <p>{{ post.content }}</p>
+            <form action="{{ url_for('delete_post', post_id=post.id) }}"
+                  method="post">
+                <button class="btn-delete"
+                        type="submit"
+                        onclick="return confirm('Do you really want to delete the post?')">
+                    Delete Post
+                </button>
+            </form>
         {% endfor %}
     </div>
 </body>

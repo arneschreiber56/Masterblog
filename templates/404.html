@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<header>
+    <h1>Welcome to My Flask Blog!</h1>
+</header>
+<body>
+    <nav>
+        <a href="/" class="btn-add">Go back home</a>
+    </nav>
+    <div class="empty">
+        <h2>404 – Not found 🚫</h2>
+        <p>The requested page or resource could not be found.</p>
+        <p>It may have been deleted or never existed.</p>
+
+        <a href="{{ url_for('home') }}" class="btn-add">
+            Go back home
+        </a>
+    </div>
+</body>
+</html>
+

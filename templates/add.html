@@ -11,7 +11,7 @@
 </header>
 <body>
     <nav>
-        <a href="/">Back to home</a>
+        <a href="/" class="btn-add">Go back home</a>
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -31,7 +31,7 @@
             <input type="text" id="title" name="title">
             <label for="content">Enter Post Content: </label>
             <input type="text" id="content" name="content">
-            <button type="submit">Submit</button>
+            <button class="btn-add" type="submit">Submit</button>
         </form>
     </div>
 </body>
